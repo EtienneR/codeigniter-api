@@ -45,4 +45,4 @@ class Model_product extends CI_Model {
 }
 
 /* End of file Model_product.php */
-/* Location: ./application/controllers/Model_product.php */
+/* Location: ./application/models/Model_product.php */
