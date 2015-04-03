@@ -10,73 +10,78 @@ class Product extends CI_Controller {
 	}
 
 	// Get all products
-	public function index(){
+	public function index()
+	{
 		$data = $this->Model_product->get_all();
 
-		if ($data->num_rows() > 0):
+		if ($data->num_rows() > 0){
 			echo json_encode($data->result());
-		else:
+		} else {
 			header("HTTP/1.0 204 No Content");
 			echo json_encode('204: no products in the database');
-		endif;
+		}
 	}
 
 	// Get a product
-	public function view($id){
+	public function view($id)
+	{
 		$data = $this->Model_product->get_one($id);
 
-		if ($data->num_rows() > 0):
+		if ($data->num_rows() > 0) {
 			echo json_encode($data->result());
-		else:
+		} else {
 			header("HTTP/1.0 404 Not Found");
 			echo json_encode('404 : Product #' . $id . ' not found');
-		endif;
+		}
 	}
 
 	// Create a product
-	public function create(){
+	public function create()
+	{
 		$title = $this->input->post('title');
 
-		if (!empty($title)):
+		if (!empty($title)) {
 			$this->Model_product->post($title);
 			echo json_encode('Product created');
-		else:
+		} else {
 			header("HTTP/1.0 400 Bad Request");
 			echo json_encode('400: Empty value');
-		endif;
+		}
 	}
 
 	// Update a product
-	public function update($id){
+	public function update($id)
+	{
 		$title = utf8_encode($this->input->input_stream('title'));
 
 		// If product exists
-		if ($this->Model_product->get_one($id)->num_rows() == 1):
+		if ($this->Model_product->get_one($id)->num_rows() == 1) {
 
-			if (!empty($title)):
+			if (!empty($title)) {
 				$this->Model_product->put($id, $title);
 				echo json_encode('200: Product #' . $id . ' updated');
-			else:
+			} else {
 				header("HTTP/1.0 400 Bad Request");
 				echo json_encode('400: Empty value');
-			endif;
+			}
 
-		else:
+		} else {
 			header("HTTP/1.0 404 Not Found");
 			echo json_encode('404: Product #' . $id . ' not found');
-		endif;
+		}
 	}
 
 	// Delete a product
-	public function delete($id){
+	public function delete($id)
+	{
 		// If product exists
-		if ($this->Model_product->get_one($id)->num_rows() == 1):
+		if ($this->Model_product->get_one($id)->num_rows() == 1) {
 			$this->Model_product->delete($id);
 			echo json_encode('200: Product #' . $id . ' deleted');
-		else:
+		} else { 
 			header("HTTP/1.0 404 Not Found");
 			echo json_encode('404: Product #' . $id . ' not found');
-		endif;
+		}
 	}
 
 }
