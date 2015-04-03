@@ -7,6 +7,7 @@ class Product extends CI_Controller {
 		parent::__construct();
 		$this->load->database();
 		$this->load->model('Model_product');
+		header("Access-Control-Allow-Origin: *"); // CORS Origin enabled
 	}
 
 	// Get all products
