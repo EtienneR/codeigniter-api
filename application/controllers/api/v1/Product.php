@@ -15,8 +15,11 @@ class Product extends CI_Controller {
 	{
 		$data = $this->Model_product->get_all();
 
-		if ($data->num_rows() > 0){
-			echo json_encode($data->result());
+		if ($data->num_rows() > 0) {
+			foreach ($data->result() as $row) {
+				$result[] = array("id" => intval($row->id), "title" => $row->title);
+			}
+			echo json_encode($result);
 		} else {
 			header("HTTP/1.0 204 No Content");
 			echo json_encode('204: no products in the database');
@@ -29,7 +32,10 @@ class Product extends CI_Controller {
 		$data = $this->Model_product->get_one($id);
 
 		if ($data->num_rows() > 0) {
-			echo json_encode($data->result());
+			foreach ($data->result() as $row) {
+				$result[] = array("id" => intval($row->id), "title" => $row->title);
+			}
+			echo json_encode($result);
 		} else {
 			header("HTTP/1.0 404 Not Found");
 			echo json_encode('404 : Product #' . $id . ' not found');
