@@ -45,7 +45,7 @@ class Product extends CI_Controller {
 	// Create a product
 	public function create()
 	{
-		$title = $this->input->post('title');
+		$title = $this->input->post('title', TRUE);
 
 		if (!empty($title)) {
 			$this->Model_product->post($title);
