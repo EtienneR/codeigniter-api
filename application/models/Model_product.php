@@ -2,16 +2,22 @@
 
 class Model_product extends CI_Model {
 
+	function __construct()
+	{
+		parent::__construct();
+		$this->table = "product";
+	}
+
 	function get_all()
 	{
-		return $this->db->get('product');
+		return $this->db->get($this->table);
 	}
 
 	function get_one($id)
 	{
-		$this->db->select('id, title')
-				 ->from('product')
-				 ->where('id', $id)
+		$this->db->select("id, title")
+				 ->from($this->table)
+				 ->where("id", $id)
 				 ->limit(1);
 
 		return $this->db->get();
@@ -20,26 +26,26 @@ class Model_product extends CI_Model {
 	function post($title)
 	{
 		$data = array(
-			'title' => $title,
+			"title" => $title,
 		);
 
-		$this->db->insert('product', $data);
+		$this->db->insert($this->table, $data);
 	}
 
 	function put($id, $title)
 	{
 		$data = array(
-			'title' => $title
+			"title" => $title
 		);
 
-		$this->db->where('id', $id)
-				 ->update('product', $data);
+		$this->db->where("id", $id)
+				 ->update($this->table, $data);
 	}
 
 	function delete($id)
 	{
-		$this->db->where_in('id', $id)
-				 ->delete('product');
+		$this->db->where_in("id", $id)
+				 ->delete($this->table);
 	}
 
 }
